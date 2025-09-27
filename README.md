@@ -41,7 +41,7 @@ go install github.com/brpaz/go-test-html-report/cmd/go-test-html-report@latest
 
 **Nix**
 
-TBD
+Coming soon...
 
 ## 🔧 Usage
 
