@@ -1,14 +1,27 @@
-name: PR Title Check
+name: PR Label Checker
 on:
   pull_request:
-    types: [opened, synchronize, reopened, edited]
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - labeled
+      - unlabeled
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  pull-requests: read
+  checks: write
 jobs:
-  validate-pr-title:
-    runs-on: ubuntu-latest
+  check_cc_labels:
+    name: Check conventional commits labels
+    runs-on: "ubuntu-latest"
     steps:
-      - name: PR Conventional Commit Validation
-        uses: ytanikin/pr-conventional-commits@1.4.0
+      - uses: danielchabr/pr-labels-checker@v3.1
         with:
-          task_types: '["feat","fix","docs","test","ci","refactor","perf","chore","revert"]'
-          add_label: "false"
+          hasSome: feature, enhancement, bug, documentation, chore, security, dependencies
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
