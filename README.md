@@ -1,10 +1,10 @@
 # go-test-html-report
 
-> A Golang library for generating HTML reports from test results.
+> A Golang library for generating HTML reports from go test results.
 
 <div align="center">
 
-![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/brpaz/go-html-test-report?style=for-the-badge)
+![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/brpaz/go-test-html-report?style=for-the-badge)
 [![Go Report Card](https://goreportcard.com/badge/github.com/brpaz/go-test-html-report?style=for-the-badge)](https://goreportcard.com/report/github.com/brpaz/go-test-html-report)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/brpaz/go-test-html-report/ci.yml?style=for-the-badge)](https://github.com/brpaz/go-test-html-report/actions)
 [![LICENSE](https://img.shields.io/github/license/brpaz/go-test-html-report?style=for-the-badge)](https://github.com/brpaz/go-test-html-report/blob/main/LICENSE)
@@ -14,9 +14,9 @@
 
 ## 🖼️ Example
 
-![Demo](./docs/assets/images/demo.png)
+![Screenshot](./docs/assets/images/screenshot.png)
 
-You can find a full html example [here](./example/test-report.html).
+You can find a full page screenshot of the resulting report [here](./docs/assets/images/screenshot-full.png) and a full HTML example [here](./example/test-report.html).
 
 ## 🚀 Getting Started
 
