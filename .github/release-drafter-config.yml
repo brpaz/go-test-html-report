@@ -46,7 +46,7 @@ version-resolver:
       - "security"
       - "docs"
 autolabeler:
-  - lablel: "chore"
+  - label: "chore"
     title:
       - "/chore/i"
   - label: "documentation"
