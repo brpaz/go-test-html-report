@@ -11,7 +11,7 @@
 
 </div>
 
-## Features
+## 🎯 Features
 
 - Generates a good looking single page HTML report from Go test results, using [Tailwind CSS](https://tailwindcss.com/) for the UI.
 - Test Report includes summary statistics (number of tests, passed/failed, total test duration), test case details, and relevant test output.
