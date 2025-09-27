@@ -23,7 +23,7 @@ builds:
     goarch:
       - amd64
       - arm
-    main: ./cmd/go-test-html-report/main.go
+    main: ./cmd/go-test-html-report
     ldflags:
       - -s -w
       - -X main.version={{.Version}}
