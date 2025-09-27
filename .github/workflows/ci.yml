@@ -77,6 +77,7 @@ jobs:
       - uses: codecov/codecov-action@v5
         if: ${{ !cancelled() }}
         with:
+          slug: ${{ github.repository }}
           fail_ci_if_error: false
           files: ./reports/coverage.out
           token: ${{ secrets.CODECOV_TOKEN }}
