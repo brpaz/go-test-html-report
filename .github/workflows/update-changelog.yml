@@ -33,7 +33,7 @@ jobs:
           release-notes: ${{ github.event.release.body }}
 
       - name: Commit release files
-        uses: stefanzweifel/git-auto-commit-action@v5
+        uses: stefanzweifel/git-auto-commit-action@v6
         with:
           branch: main
           commit_message: "chore(release): [skip-ci] ${{ github.event.release.tag_name }}"
