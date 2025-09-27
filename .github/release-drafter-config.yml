@@ -46,9 +46,6 @@ version-resolver:
       - "security"
       - "docs"
 autolabeler:
-  - label: "chore"
-    title:
-      - "/chore/i"
   - label: "documentation"
     title:
       - "/docs?/i"
@@ -62,6 +59,13 @@ autolabeler:
       - '/feat\/.+/'
     title:
       - "/feat/i"
+  - label: dependencies
+    branch:
+      - '/renovate\/.+/'
+      - '/dependabot\/.+/'
+  - label: "chore"
+    title:
+      - "/chore/i"
 
 template: |
   # What's Changed
