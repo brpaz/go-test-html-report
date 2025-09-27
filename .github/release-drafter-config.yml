@@ -65,7 +65,7 @@ autolabeler:
       - '/dependabot\/.+/'
   - label: "chore"
     title:
-      - "/chore/i"
+      - "/chore(?!\\(deps)/i"
 
 template: |
   # What's Changed
