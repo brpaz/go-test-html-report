@@ -24,25 +24,17 @@ tasks:
     desc: Run unit tests
     cmds:
       - |
-        mkdir -p ${{.REPORTS_DIR}}
+        mkdir -p {{ .REPORTS_DIR }}
         gotestsum --format testname --jsonfile reports/test-result.json \
-            --  -coverprofile=${{.REPORTS_DIR}}/coverage.out -covermode=atomic ./...
-  gomod:
-    desc: Download Go modules
-    cmds:
-      - go mod download && go mod tidy
+            --  -coverprofile={{ .REPORTS_DIR }}/coverage.out -covermode=atomic ./internal/...
 
-  docs-build:
-    desc: Build documentation
+  test-with-report:
+    desc: Run unit tests and generate HTML report
     cmds:
-      - mkdocs build --clean
+      - mkdir -p {{ .REPORTS_DIR }}
+      - go test -json ./internal/... | go run cmd/main.go -i - -o {{ .REPORTS_DIR }}/test-report.html -t "Test Report"
 
-  docs-serve:
-    desc: Serve documentation locally
+  snapshot:
+    desc: Create a snapshot release
     cmds:
-      - mkdocs serve
-
-  gomarkdoc:
-    desc: Generate documentation using gomarkdoc
-    cmds:
-      - gomarkdoc --output ./docs/GODOC.md
+      - goreleaser release --snapshot --clean

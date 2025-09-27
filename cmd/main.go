@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	"log"
+	"io"
 	"os"
 
-	"github.com/brpaz/go-test-html-report/internal/generator"
 	"github.com/urfave/cli/v3"
+
+	"github.com/brpaz/go-test-html-report/internal/generator"
 )
 
 var (
@@ -18,8 +19,8 @@ var (
 
 func main() {
 	cmd := &cli.Command{
-        Name:  "go-test-html-report",
-        Usage: "generate HTML report from Go test results",
+		Name:    "go-test-html-report",
+		Usage:   "generate HTML report from Go test results",
 		Version: fmt.Sprintf("%s (commit: %s, date: %s)", version, commit, date),
 		Flags: []cli.Flag{
 			&cli.StringFlag{
@@ -31,7 +32,7 @@ func main() {
 			&cli.StringFlag{
 				Name:    "input",
 				Aliases: []string{"i"},
-				Usage:   "Input file containing Go test results",
+				Usage:   "Input file containing Go test results (use '-' for stdin)",
 				Value:   "test_results.json",
 			},
 			&cli.StringFlag{
@@ -44,25 +45,47 @@ func main() {
 		EnableShellCompletion: true,
 		Description: `
 			go-test-html-report is a CLI tool that generates an HTML report from Go test results.
-			It processes the output of 'go test' and creates a user-friendly HTML report.`,
-        Action: func(ctx context.Context, cmd *cli.Command) error {
-			inputFile := cmd.String("input")
-			outputFile := cmd.String("output")
-			title := cmd.String("title")
+			It processes the output of 'go test' and creates a user-friendly HTML report.
 
-            reporter, err := generator.NewHTMLReportGenerator(
-				generator.WithInputFile(inputFile),
-				generator.WithOutputFile(outputFile),
-				generator.WithTitle(title),
-			)
-            if err != nil {
-                return err
-            }
-            return reporter.Generate(ctx)
-        },
-    }
+			Examples:
+			  go test -json ./... | go-test-html-report -i - -o report.html
+			  go-test-html-report -i test_results.json -o report.html`,
+		Action: actionGenerateReport,
+	}
 
-    if err := cmd.Run(context.Background(), os.Args); err != nil {
-        log.Fatal(err)
-    }
+	if err := cmd.Run(context.Background(), os.Args); err != nil {
+		_, _ = cmd.ErrWriter.Write([]byte(err.Error() + "\n"))
+	}
+}
+
+func actionGenerateReport(ctx context.Context, cmd *cli.Command) error {
+	inputFile := cmd.String("input")
+	outputFile := cmd.String("output")
+	title := cmd.String("title")
+
+	var opts []generator.Option
+	if inputFile == "-" {
+		// Read from stdin
+		data, err := io.ReadAll(os.Stdin)
+		if err != nil {
+			return fmt.Errorf("failed to read from stdin: %w", err)
+		}
+		opts = []generator.Option{
+			generator.WithInputData(data),
+			generator.WithOutputFile(outputFile),
+			generator.WithTitle(title),
+		}
+	} else {
+		opts = []generator.Option{
+			generator.WithInputFile(inputFile),
+			generator.WithOutputFile(outputFile),
+			generator.WithTitle(title),
+		}
+	}
+
+	reporter, err := generator.New(opts...)
+	if err != nil {
+		return err
+	}
+	return reporter.Generate(ctx)
 }

@@ -65,7 +65,7 @@ jobs:
             --format testname \
             --junitfile reports/test-result.xml \
             --jsonfile reports/test-result.json \
-              --  -coverprofile=reports/coverage.out -covermode=atomic ./...
+              --  -coverprofile=reports/coverage.out -covermode=atomic ./internal/...
 
       - name: Upload test results artifact
         if: ${{ !cancelled() }}
@@ -80,3 +80,52 @@ jobs:
           fail_ci_if_error: false
           files: ./reports/coverage.out
           token: ${{ secrets.CODECOV_TOKEN }}
+
+  snapshot:
+    name: Snapshot
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+
+      - uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: release --clean --snapshot
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload build artifact
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: snapshot
+          path: dist/
+
+  release:
+    name: Release
+    if: github.event_name == 'release' && github.event.action == 'published'
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: "go.mod"
+
+      - uses: goreleaser/goreleaser-action@v6
+        with:
+          distribution: goreleaser
+          version: "~> v2"
+          args: release --clean
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

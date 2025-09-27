@@ -1,7 +1,7 @@
 package report
 
 type TestSuite struct {
-	Name 	string
+	Name      string
 	TestCases []TestCase
 }
 

@@ -16,6 +16,12 @@ import (
 //go:embed templates/*.html
 var templateFS embed.FS
 
+var (
+	ErrInputFileIsRequired   = errors.New("input file or stdin data is required")
+	ErrOutputFileIsRequired  = errors.New("output file is required")
+	ErrInputFileDoesNotExist = errors.New("input file does not exist")
+)
+
 const (
 	ReportTemplate = "templates/report.html"
 	ReportTitle    = "Go Test Report"
@@ -24,6 +30,7 @@ const (
 // HTMLGenerator is the main struct for generating HTML reports.
 type HTMLGenerator struct {
 	InputFile  string
+	InputData  []byte
 	OutputFile string
 	Title      string
 }
@@ -31,16 +38,21 @@ type HTMLGenerator struct {
 // Validate checks if the HTMLGenerator has valid configuration.
 func (g *HTMLGenerator) Validate() error {
 	var errs []error
-	if g.InputFile == "" {
-		errs = append(errs, errors.New("input file is required"))
-	}
-	if g.OutputFile == "" {
-		errs = append(errs, errors.New("output file is required"))
+
+	// Either InputFile or InputData must be provided
+	if g.InputFile == "" && len(g.InputData) == 0 {
+		errs = append(errs, ErrInputFileIsRequired)
 	}
 
-	// Check if input file exists
-	if _, err := os.Stat(g.InputFile); os.IsNotExist(err) {
-		errs = append(errs, fmt.Errorf("input file does not exist: %s", g.InputFile))
+	if g.OutputFile == "" {
+		errs = append(errs, ErrOutputFileIsRequired)
+	}
+
+	// Check if input file exists (only if InputFile is provided)
+	if g.InputFile != "" {
+		if _, err := os.Stat(g.InputFile); os.IsNotExist(err) {
+			errs = append(errs, ErrInputFileDoesNotExist)
+		}
 	}
 
 	if len(errs) > 0 {
@@ -49,34 +61,38 @@ func (g *HTMLGenerator) Validate() error {
 	return nil
 }
 
-type Option func(*HTMLGenerator) error
+type Option func(*HTMLGenerator)
 
 // WithInputFile sets the input file for the HTML report generator.
 func WithInputFile(inputFile string) Option {
-	return func(g *HTMLGenerator) error {
+	return func(g *HTMLGenerator) {
 		g.InputFile = inputFile
-		return nil
 	}
 }
 
 // WithOutputFile sets the output file for the HTML report generator.
 func WithOutputFile(outputFile string) Option {
-	return func(g *HTMLGenerator) error {
+	return func(g *HTMLGenerator) {
 		g.OutputFile = outputFile
-		return nil
 	}
 }
 
 // WithTitle sets the title for the HTML report.
 func WithTitle(title string) Option {
-	return func(g *HTMLGenerator) error {
+	return func(g *HTMLGenerator) {
 		g.Title = title
-		return nil
 	}
 }
 
-// NewHTMLReportGenerator creates a new HTMLReportGenerator with the provided options.
-func NewHTMLReportGenerator(opts ...Option) (*HTMLGenerator, error) {
+// WithInputData sets the input data directly for the HTML report generator.
+func WithInputData(data []byte) Option {
+	return func(g *HTMLGenerator) {
+		g.InputData = data
+	}
+}
+
+// New creates a new HTMLReportGenerator with the provided options.
+func New(opts ...Option) (*HTMLGenerator, error) {
 	g := &HTMLGenerator{
 		Title: ReportTitle,
 	}
@@ -103,13 +119,20 @@ type TemplateData struct {
 	TotalDuration float64
 }
 
-// Generate generates the HTML report from the input file to the output file.
+// Generate generates the HTML report from the input file or data to the output file.
 func (g *HTMLGenerator) Generate(ctx context.Context) error {
-	fmt.Printf("Generating HTML report from %s to %s\n", g.InputFile, g.OutputFile)
+	var data []byte
+	var err error
 
-	data, err := os.ReadFile(g.InputFile)
-	if err != nil {
-		return fmt.Errorf("failed to read input file: %w", err)
+	if len(g.InputData) > 0 {
+		fmt.Printf("Generating HTML report from stdin to %s\n", g.OutputFile)
+		data = g.InputData
+	} else {
+		fmt.Printf("Generating HTML report from %s to %s\n", g.InputFile, g.OutputFile)
+		data, err = os.ReadFile(g.InputFile)
+		if err != nil {
+			return fmt.Errorf("failed to read input file: %w", err)
+		}
 	}
 
 	testSuites, err := test2json.Parse(data)
@@ -121,9 +144,10 @@ func (g *HTMLGenerator) Generate(ctx context.Context) error {
 
 	// Create and parse template
 	tmpl, err := template.New("report.html").Funcs(template.FuncMap{
-		"statusClass": g.getStatusClass,
-		"statusIcon":  g.getStatusIcon,
+		"statusClass":    g.getStatusClass,
+		"statusIcon":     g.getStatusIcon,
 		"formatDuration": g.formatDuration,
+		"add":            func(a, b int) int { return a + b },
 		"title": func(s string) string {
 			if len(s) == 0 {
 				return s
@@ -140,7 +164,7 @@ func (g *HTMLGenerator) Generate(ctx context.Context) error {
 	if err != nil {
 		return fmt.Errorf("failed to create output file: %w", err)
 	}
-	defer outFile.Close()
+	defer func() { _ = outFile.Close() }()
 
 	// Execute template
 	if err := tmpl.Execute(outFile, templateData); err != nil {
@@ -221,4 +245,3 @@ func (g *HTMLGenerator) formatDuration(seconds float64) string {
 	}
 	return fmt.Sprintf("%.2fs", seconds)
 }
-

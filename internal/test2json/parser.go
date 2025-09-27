@@ -33,7 +33,7 @@ func Parse(data []byte) ([]report.TestSuite, error) {
 		var event TestEvent
 		if err := decoder.Decode(&event); err != nil {
 			return nil, err
-		}		// Skip events without a package or test
+		} // Skip events without a package or test
 		if event.Package == "" {
 			continue
 		}

@@ -1,0 +1,1494 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>Go Test Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-mono: "JetBrains Mono", "Consolas", "Monaco", "Courier New", "monospace";
+    }
+  </style>
+  <style>
+     
+    summary {
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::marker {
+      display: none;
+    }
+
+    .details-icon {
+      transition: transform 0.2s ease;
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+  <div class="min-h-screen">
+    
+    <header class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="py-6">
+          <h1 class="text-3xl font-bold text-gray-900">Go Test Report</h1>
+          <p class="mt-2 text-sm text-gray-600">Generated on 2025-09-27T14:51:11&#43;01:00</p>
+        </div>
+      </div>
+    </header>
+
+    
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">T</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Total Tests</dt>
+                  <dd class="text-lg font-medium text-gray-900">14</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">✓</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Passed</dt>
+                  <dd class="text-lg font-medium text-green-600">6</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">✗</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Failed</dt>
+                  <dd class="text-lg font-medium text-red-600">4</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">⚠</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Skipped</dt>
+                  <dd class="text-lg font-medium text-yellow-600">4</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">⏱</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Duration</dt>
+                  <dd class="text-lg font-medium text-purple-600">6.30s</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      
+      
+      <div class="mb-8">
+        <div class="bg-red-50 border border-red-200 rounded-lg overflow-hidden">
+          <div class="bg-red-100 px-6 py-4 border-b border-red-200">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">✗</span>
+                </div>
+              </div>
+              <div class="ml-3">
+                <h2 class="text-lg font-semibold text-red-900">Failed Tests (4)</h2>
+                <p class="text-sm text-red-700">Review these failing tests for immediate attention</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="divide-y divide-red-200">
+            
+            
+            
+            
+            
+            <div class="p-6 bg-white">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                  <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                    ✗ Failed
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium text-gray-900">TestUserRegistration</h3>
+                    <span class="text-sm text-gray-500">
+                      Duration: 500ms
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-600 mt-1">Package: github.com/myproject/internal/auth</p>
+
+                  
+                  <div class="mt-4">
+                    <details class="group">
+                      <summary class="cursor-pointer text-sm font-medium text-red-700 hover:text-red-900">
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-4 h-4 text-red-500 transition-transform duration-200 details-icon"
+                               fill="none"
+                               stroke="currentColor"
+                               viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 5l7 7-7 7"></path>
+                          </svg>
+                          <span>
+                            <span class="details-closed">Show failure output (4 line(s))</span>
+                            <span class="details-open hidden">Hide failure output</span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                        <pre class="text-red-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestUserRegistration
+    auth_test.go:42: Expected user ID to be generated, got empty string
+    auth_test.go:43: Registration validation failed
+--- FAIL: TestUserRegistration (0.50s)
+</pre>
+                      </div>
+                    </details>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="p-6 bg-white">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                  <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                    ✗ Failed
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium text-gray-900">TestCreateUser</h3>
+                    <span class="text-sm text-gray-500">
+                      Duration: 1.00s
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-600 mt-1">Package: github.com/myproject/internal/database</p>
+
+                  
+                  <div class="mt-4">
+                    <details class="group">
+                      <summary class="cursor-pointer text-sm font-medium text-red-700 hover:text-red-900">
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-4 h-4 text-red-500 transition-transform duration-200 details-icon"
+                               fill="none"
+                               stroke="currentColor"
+                               viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 5l7 7-7 7"></path>
+                          </svg>
+                          <span>
+                            <span class="details-closed">Show failure output (4 line(s))</span>
+                            <span class="details-open hidden">Hide failure output</span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                        <pre class="text-red-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestCreateUser
+    database_test.go:78: SQL constraint violation: duplicate key
+    database_test.go:79: Failed to insert user into database
+--- FAIL: TestCreateUser (1.00s)
+</pre>
+                      </div>
+                    </details>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="p-6 bg-white">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                  <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                    ✗ Failed
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium text-gray-900">TestRateLimiting</h3>
+                    <span class="text-sm text-gray-500">
+                      Duration: 1.00s
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-600 mt-1">Package: github.com/myproject/internal/api</p>
+
+                  
+                  <div class="mt-4">
+                    <details class="group">
+                      <summary class="cursor-pointer text-sm font-medium text-red-700 hover:text-red-900">
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-4 h-4 text-red-500 transition-transform duration-200 details-icon"
+                               fill="none"
+                               stroke="currentColor"
+                               viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 5l7 7-7 7"></path>
+                          </svg>
+                          <span>
+                            <span class="details-closed">Show failure output (4 line(s))</span>
+                            <span class="details-open hidden">Hide failure output</span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                        <pre class="text-red-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestRateLimiting
+    api_test.go:145: Rate limiter not properly configured
+    api_test.go:146: Expected 429 status, got 200
+--- FAIL: TestRateLimiting (1.00s)
+</pre>
+                      </div>
+                    </details>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            <div class="p-6 bg-white">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                  <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                    ✗ Failed
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium text-gray-900">TestCryptoHelpers</h3>
+                    <span class="text-sm text-gray-500">
+                      Duration: 800ms
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-600 mt-1">Package: github.com/myproject/internal/utils</p>
+
+                  
+                  <div class="mt-4">
+                    <details class="group">
+                      <summary class="cursor-pointer text-sm font-medium text-red-700 hover:text-red-900">
+                        <div class="flex items-center space-x-2">
+                          <svg class="w-4 h-4 text-red-500 transition-transform duration-200 details-icon"
+                               fill="none"
+                               stroke="currentColor"
+                               viewBox="0 0 24 24">
+                            <path stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                  stroke-width="2"
+                                  d="M9 5l7 7-7 7"></path>
+                          </svg>
+                          <span>
+                            <span class="details-closed">Show failure output (4 line(s))</span>
+                            <span class="details-open hidden">Hide failure output</span>
+                          </span>
+                        </div>
+                      </summary>
+                      <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                        <pre class="text-red-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestCryptoHelpers
+    utils_test.go:85: Hash algorithm not properly implemented
+    utils_test.go:86: Expected SHA-256 hash, got MD5
+--- FAIL: TestCryptoHelpers (0.80s)
+</pre>
+                      </div>
+                    </details>
+                  </div>
+                  
+                </div>
+              </div>
+            </div>
+            
+            
+            
+            
+            
+          </div>
+        </div>
+      </div>
+      
+
+      
+      <div class="mb-6 flex justify-between items-center">
+        <h2 class="text-xl font-semibold text-gray-900">Test Packages</h2>
+        <div class="flex space-x-2">
+          <button id="expandAll"
+                  class="px-3 py-2 text-sm font-medium text-blue-700 bg-blue-50 border border-blue-200 rounded-md hover:bg-blue-100 transition-colors duration-200 cursor-pointer">
+            Expand All
+          </button>
+          <button id="collapseAll"
+                  class="px-3 py-2 text-sm font-medium text-gray-700 bg-gray-50 border border-gray-200 rounded-md hover:bg-gray-100 transition-colors duration-200 cursor-pointer">
+            Collapse All
+          </button>
+        </div>
+      </div>
+
+      
+      <div class="space-y-4">
+        
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+          <details class="group"
+                   open>
+            <summary
+                     class="cursor-pointer bg-gray-50 px-6 py-4 border-b border-gray-200 hover:bg-gray-100 transition-colors duration-200 list-none">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <svg class="w-5 h-5 text-gray-500 transition-transform duration-200 group-open:rotate-90"
+                       fill="none"
+                       stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  <h2 class="text-lg font-medium text-gray-900 font-mono">github.com/myproject/internal/auth</h2>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div class="flex space-x-2">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">1
+                      passed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">1
+                      failed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">1
+                      skipped</span>
+                  </div>
+                  <span class="text-sm text-gray-500">3 test(s)</span>
+                </div>
+              </div>
+            </summary>
+
+            <div class="divide-y divide-gray-200">
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-green-100 text-green-800 border-green-200">
+                        ✓ Pass
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestUserLogin</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 500ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (2 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestUserLogin
+--- PASS: TestUserLogin (0.50s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-red-100 text-red-800 border-red-200">
+                        ✗ Fail
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestUserRegistration</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 500ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (4 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestUserRegistration
+    auth_test.go:42: Expected user ID to be generated, got empty string
+    auth_test.go:43: Registration validation failed
+--- FAIL: TestUserRegistration (0.50s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-yellow-100 text-yellow-800 border-yellow-200">
+                        ⚠ Skip
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestPasswordReset</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 100ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (3 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestPasswordReset
+--- SKIP: TestPasswordReset (0.10s)
+    auth_test.go:65: Email service not available in test environment
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </details>
+        </div>
+        
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+          <details class="group"
+                   open>
+            <summary
+                     class="cursor-pointer bg-gray-50 px-6 py-4 border-b border-gray-200 hover:bg-gray-100 transition-colors duration-200 list-none">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <svg class="w-5 h-5 text-gray-500 transition-transform duration-200 group-open:rotate-90"
+                       fill="none"
+                       stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  <h2 class="text-lg font-medium text-gray-900 font-mono">github.com/myproject/internal/database</h2>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div class="flex space-x-2">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">1
+                      passed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">1
+                      failed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">1
+                      skipped</span>
+                  </div>
+                  <span class="text-sm text-gray-500">3 test(s)</span>
+                </div>
+              </div>
+            </summary>
+
+            <div class="divide-y divide-gray-200">
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-green-100 text-green-800 border-green-200">
+                        ✓ Pass
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestDatabaseConnection</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 500ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (2 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestDatabaseConnection
+--- PASS: TestDatabaseConnection (0.50s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-red-100 text-red-800 border-red-200">
+                        ✗ Fail
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestCreateUser</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 1.00s
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (4 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestCreateUser
+    database_test.go:78: SQL constraint violation: duplicate key
+    database_test.go:79: Failed to insert user into database
+--- FAIL: TestCreateUser (1.00s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-yellow-100 text-yellow-800 border-yellow-200">
+                        ⚠ Skip
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestMigrations</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 300ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (3 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestMigrations
+--- SKIP: TestMigrations (0.30s)
+    database_test.go:95: Migration tests require production database
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </details>
+        </div>
+        
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+          <details class="group"
+                   open>
+            <summary
+                     class="cursor-pointer bg-gray-50 px-6 py-4 border-b border-gray-200 hover:bg-gray-100 transition-colors duration-200 list-none">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <svg class="w-5 h-5 text-gray-500 transition-transform duration-200 group-open:rotate-90"
+                       fill="none"
+                       stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  <h2 class="text-lg font-medium text-gray-900 font-mono">github.com/myproject/internal/api</h2>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div class="flex space-x-2">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">2
+                      passed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">1
+                      failed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">1
+                      skipped</span>
+                  </div>
+                  <span class="text-sm text-gray-500">4 test(s)</span>
+                </div>
+              </div>
+            </summary>
+
+            <div class="divide-y divide-gray-200">
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-green-100 text-green-800 border-green-200">
+                        ✓ Pass
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestHealthCheckEndpoint</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 200ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (2 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestHealthCheckEndpoint
+--- PASS: TestHealthCheckEndpoint (0.20s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-green-100 text-green-800 border-green-200">
+                        ✓ Pass
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestUserAPIEndpoints</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 500ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (2 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestUserAPIEndpoints
+--- PASS: TestUserAPIEndpoints (0.50s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-red-100 text-red-800 border-red-200">
+                        ✗ Fail
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestRateLimiting</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 1.00s
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (4 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestRateLimiting
+    api_test.go:145: Rate limiter not properly configured
+    api_test.go:146: Expected 429 status, got 200
+--- FAIL: TestRateLimiting (1.00s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-yellow-100 text-yellow-800 border-yellow-200">
+                        ⚠ Skip
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestWebSocketConnection</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 100ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (3 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestWebSocketConnection
+--- SKIP: TestWebSocketConnection (0.10s)
+    api_test.go:165: WebSocket tests disabled in CI environment
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </details>
+        </div>
+        
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+          <details class="group"
+                   open>
+            <summary
+                     class="cursor-pointer bg-gray-50 px-6 py-4 border-b border-gray-200 hover:bg-gray-100 transition-colors duration-200 list-none">
+              <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                  <svg class="w-5 h-5 text-gray-500 transition-transform duration-200 group-open:rotate-90"
+                       fill="none"
+                       stroke="currentColor"
+                       viewBox="0 0 24 24">
+                    <path stroke-linecap="round"
+                          stroke-linejoin="round"
+                          stroke-width="2"
+                          d="M9 5l7 7-7 7"></path>
+                  </svg>
+                  <h2 class="text-lg font-medium text-gray-900 font-mono">github.com/myproject/internal/utils</h2>
+                </div>
+                <div class="flex items-center space-x-4">
+                  <div class="flex space-x-2">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800">2
+                      passed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-red-100 text-red-800">1
+                      failed</span>
+                    <span
+                          class="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">1
+                      skipped</span>
+                  </div>
+                  <span class="text-sm text-gray-500">4 test(s)</span>
+                </div>
+              </div>
+            </summary>
+
+            <div class="divide-y divide-gray-200">
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-green-100 text-green-800 border-green-200">
+                        ✓ Pass
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestStringHelpers</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 300ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (2 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestStringHelpers
+--- PASS: TestStringHelpers (0.30s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-green-100 text-green-800 border-green-200">
+                        ✓ Pass
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestDateHelpers</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 300ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (2 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestDateHelpers
+--- PASS: TestDateHelpers (0.30s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-red-100 text-red-800 border-red-200">
+                        ✗ Fail
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestCryptoHelpers</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 800ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (4 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestCryptoHelpers
+    utils_test.go:85: Hash algorithm not properly implemented
+    utils_test.go:86: Expected SHA-256 hash, got MD5
+--- FAIL: TestCryptoHelpers (0.80s)
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="p-6">
+                <div class="flex items-start justify-between">
+                  <div class="flex items-start space-x-3 flex-1">
+                    <div class="flex-shrink-0">
+                      <span
+                            class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border bg-yellow-100 text-yellow-800 border-yellow-200">
+                        ⚠ Skip
+                      </span>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <h3 class="text-sm font-medium text-gray-900 font-mono">TestFileHelpers</h3>
+                      <div class="mt-2 flex items-center space-x-4">
+                        <span class="text-sm text-gray-500">
+                          Duration: 200ms
+                        </span>
+                      </div>
+
+                      
+                      <div class="mt-4">
+                        <details class="group">
+                          <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                            <div class="flex items-center space-x-2">
+                              <svg class="w-4 h-4 text-gray-500 transition-transform duration-200 details-icon"
+                                   fill="none"
+                                   stroke="currentColor"
+                                   viewBox="0 0 24 24">
+                                <path stroke-linecap="round"
+                                      stroke-linejoin="round"
+                                      stroke-width="2"
+                                      d="M9 5l7 7-7 7"></path>
+                              </svg>
+                              <span>
+                                <span class="details-closed">Show output (3 line(s))</span>
+                                <span class="details-open hidden">Hide output</span>
+                              </span>
+                            </div>
+                          </summary>
+                          <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                            <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">=== RUN   TestFileHelpers
+--- SKIP: TestFileHelpers (0.20s)
+    utils_test.go:105: File system tests require write permissions
+</pre>
+                          </div>
+                        </details>
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+              </div>
+              
+            </div>
+          </details>
+        </div>
+        
+      </div>
+    </div>
+
+    
+    <button id="goToTop"
+            class="fixed bottom-8 right-8 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible transform translate-y-4 hover:scale-110 z-50 cursor-pointer">
+      <svg class="w-6 h-6"
+           fill="none"
+           stroke="currentColor"
+           viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+      </svg>
+    </button>
+
+    
+    <footer class="bg-white border-t border-gray-200 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <p class="text-center text-sm text-gray-500">
+          Generated by <a target="_blank"
+             class="text-blue-400"
+             href="https://github.com/brpaz/go-test-html-report">go-test-html-report</a> on
+          2025-09-27T14:51:11&#43;01:00
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    
+    document.addEventListener('DOMContentLoaded', function () {
+      
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      
+      const goToTopButton = document.getElementById('goToTop');
+
+      
+      function toggleGoToTopButton() {
+        if (window.scrollY > 300) {
+          goToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+          goToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
+        } else {
+          goToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-4');
+          goToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
+        }
+      }
+
+      
+      window.addEventListener('scroll', toggleGoToTopButton);
+
+      
+      goToTopButton.addEventListener('click', function () {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      
+      toggleGoToTopButton();
+
+      
+      const expandAllBtn = document.getElementById('expandAll');
+      const collapseAllBtn = document.getElementById('collapseAll');
+
+      if (expandAllBtn && collapseAllBtn) {
+        expandAllBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          document.querySelectorAll('.space-y-4 > div > details.group').forEach(details => {
+            details.open = true;
+          });
+        });
+
+        collapseAllBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          
+          document.querySelectorAll('.space-y-4 > div > details.group').forEach(details => {
+            details.open = false;
+          });
+        });
+      }
+
+      
+      document.querySelectorAll('details.group').forEach(details => {
+        details.addEventListener('toggle', function () {
+          const closedText = this.querySelector('.details-closed');
+          const openText = this.querySelector('.details-open');
+          const icon = this.querySelector('.details-icon');
+
+          if (closedText && openText) {
+            if (this.open) {
+              closedText.classList.add('hidden');
+              openText.classList.remove('hidden');
+              if (icon) {
+                icon.style.transform = 'rotate(90deg)';
+              }
+            } else {
+              closedText.classList.remove('hidden');
+              openText.classList.add('hidden');
+              if (icon) {
+                icon.style.transform = 'rotate(0deg)';
+              }
+            }
+          }
+        });
+      });
+    });
+  </script>
+</body>
+
+</html>
