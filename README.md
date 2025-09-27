@@ -5,8 +5,10 @@
 <div align="center">
 
 ![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/brpaz/go-test-html-report?style=for-the-badge)
+[![Latest Release](https://img.shields.io/github/v/release/brpaz/go-test-html-report?style=for-the-badge)](https://github.com/brpaz/go-test-html-report/releases)
 [![Go Report Card](https://goreportcard.com/badge/github.com/brpaz/go-test-html-report?style=for-the-badge)](https://goreportcard.com/report/github.com/brpaz/go-test-html-report)
 [![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/brpaz/go-test-html-report/ci.yml?style=for-the-badge)](https://github.com/brpaz/go-test-html-report/actions)
+[![Codecov](https://img.shields.io/codecov/c/gh/brpaz/go-test-html-report?style=for-the-badge)](https://codecov.io/gh/brpaz/go-test-html-report)
 [![LICENSE](https://img.shields.io/github/license/brpaz/go-test-html-report?style=for-the-badge)](https://github.com/brpaz/go-test-html-report/blob/main/LICENSE)
 
 </div>
