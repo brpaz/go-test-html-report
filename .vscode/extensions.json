@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "golang.go",
+    "task.vscode-task",
+    "jetpack-io.devbox",
+    "Rubymaniac.vscode-direnv"
+  ]
+}

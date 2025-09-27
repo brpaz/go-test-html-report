@@ -1,0 +1,25 @@
+{
+    "go.useLanguageServer": true,
+    "go.lintTool": "golangci-lint",
+    "go.lintFlags": [
+        "--fast-only"
+    ],
+    "go.testFlags": [
+        "-v",
+        "-count=1"
+    ],
+    "go.formatTool": "custom",
+    "go.alternateTools": {
+        "customFormatter": "golangci-lint"
+    },
+    "go.formatFlags": [
+        "fmt",
+        "--stdin"
+    ],
+    "files.associations": {
+        ".env.example": "dotenv"
+    },
+    "files.exclude": {
+        ".devenv/**": true,
+    }
+}

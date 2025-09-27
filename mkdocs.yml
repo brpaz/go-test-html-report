@@ -1,0 +1,19 @@
+site_name: Go Library Template
+site_description: A template for Go libraries
+repo_url: https://github.com/brpaz/go-test-html-report
+theme:
+  name: material
+copyright: Copyright © 2025 Bruno Paz
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:mermaid2.fence_mermaid_custom
+  - pymdownx.tabbed:
+      alternate_style: true
+plugins:
+  - search
+  - mermaid2

@@ -1,0 +1,25 @@
+{
+  "image": "ghcr.io/cachix/devenv/devcontainer:latest",
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker": {
+      "version": "latest",
+      "dockerComposeVersion": "latest"
+    }
+  },
+  "customizations": {
+    "codespaces": {
+      "openFiles": [
+        "README.md"
+      ]
+    },
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "task.vscode-task",
+        "mkhl.direnv"
+      ]
+    }
+  },
+  "postStartCommand": "direnv allow && devenv shell",
+  "overrideCommand": false
+}

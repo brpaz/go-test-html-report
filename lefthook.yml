@@ -1,0 +1,24 @@
+# EXAMPLE USAGE:
+#
+#   Refer for explanation to following link:
+#   https://github.com/evilmartians/lefthook/blob/master/docs/configuration.md
+#
+pre-push:
+  commands:
+    test:
+      glob: "*.go"
+      run: task test
+
+pre-commit:
+  parallel: true
+  commands:
+    lint:
+      files: git diff --name-only --cached
+      glob: "*.go"
+      run: golangci-lint run --fix {files}
+    docs:
+      run: task docgen
+      glob: "*.go"
+  scripts:
+    "commitlint.sh":
+      runner: bash

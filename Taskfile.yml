@@ -1,0 +1,48 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  REPORTS_DIR: "reports"
+
+tasks:
+  default:
+    cmds:
+      - task -l
+
+  lint:
+    desc: Run linter
+    cmds:
+      - golangci-lint run
+
+  lint-fix:
+    desc: Run linter with fix
+    cmds:
+      - golangci-lint run --fix
+
+  test:
+    desc: Run unit tests
+    cmds:
+      - |
+        mkdir -p ${{.REPORTS_DIR}}
+        gotestsum --format testname --jsonfile reports/test-result.json \
+            --  -coverprofile=${{.REPORTS_DIR}}/coverage.out -covermode=atomic ./...
+  gomod:
+    desc: Download Go modules
+    cmds:
+      - go mod download && go mod tidy
+
+  docs-build:
+    desc: Build documentation
+    cmds:
+      - mkdocs build --clean
+
+  docs-serve:
+    desc: Serve documentation locally
+    cmds:
+      - mkdocs serve
+
+  gomarkdoc:
+    desc: Generate documentation using gomarkdoc
+    cmds:
+      - gomarkdoc --output ./docs/GODOC.md
