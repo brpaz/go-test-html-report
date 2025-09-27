@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.1.2 - 2025-09-27
+
+### What's Changed
+
+#### ⚠️ Maintenance
+
+- chore: fix for skip ci not working @brpaz (#9)
+
+#### 🧩 Dependency Updates
+
+- chore(deps): update ytanikin/pr-conventional-commits action to v1.4.2 @[renovate[bot]](https://github.com/apps/renovate) (#3)
+- chore(deps): update danielchabr/pr-labels-checker action to v3.3 @[renovate[bot]](https://github.com/apps/renovate) (#4)
+
+**Full Changelog**: https://github.com/brpaz/go-test-html-report/compare/0.1.1...v0.1.2
+
 ## 0.1.1 - 2025-09-27
 
 ### What's Changed
