@@ -2,21 +2,33 @@ package generator
 
 import (
 	"context"
+	"embed"
 	"errors"
 	"fmt"
 	"html/template"
 	"os"
 	"time"
 
-	"github.com/brpaz/go-test-html-report/internal/domain"
+	"github.com/brpaz/go-test-html-report/internal/report"
 	"github.com/brpaz/go-test-html-report/internal/test2json"
 )
 
+//go:embed templates/*.html
+var templateFS embed.FS
+
+const (
+	ReportTemplate = "templates/report.html"
+	ReportTitle    = "Go Test Report"
+)
+
+// HTMLGenerator is the main struct for generating HTML reports.
 type HTMLGenerator struct {
 	InputFile  string
 	OutputFile string
+	Title      string
 }
 
+// Validate checks if the HTMLGenerator has valid configuration.
 func (g *HTMLGenerator) Validate() error {
 	var errs []error
 	if g.InputFile == "" {
@@ -55,9 +67,19 @@ func WithOutputFile(outputFile string) Option {
 	}
 }
 
+// WithTitle sets the title for the HTML report.
+func WithTitle(title string) Option {
+	return func(g *HTMLGenerator) error {
+		g.Title = title
+		return nil
+	}
+}
+
 // NewHTMLReportGenerator creates a new HTMLReportGenerator with the provided options.
 func NewHTMLReportGenerator(opts ...Option) (*HTMLGenerator, error) {
-	g := &HTMLGenerator{}
+	g := &HTMLGenerator{
+		Title: ReportTitle,
+	}
 	for _, opt := range opts {
 		opt(g)
 	}
@@ -71,12 +93,14 @@ func NewHTMLReportGenerator(opts ...Option) (*HTMLGenerator, error) {
 
 // TemplateData holds the data passed to the HTML template
 type TemplateData struct {
-	TestSuites   []domain.TestSuite
-	GeneratedAt  string
-	TotalTests   int
-	PassedTests  int
-	FailedTests  int
-	SkippedTests int
+	TestSuites    []report.TestSuite
+	GeneratedAt   string
+	Title         string
+	TotalTests    int
+	PassedTests   int
+	FailedTests   int
+	SkippedTests  int
+	TotalDuration float64
 }
 
 // Generate generates the HTML report from the input file to the output file.
@@ -93,11 +117,10 @@ func (g *HTMLGenerator) Generate(ctx context.Context) error {
 		return fmt.Errorf("failed to parse input file: %w", err)
 	}
 
-	// Calculate statistics
-	templateData := g.calculateStats(testSuites)
+	templateData := g.prepareTemplateData(testSuites)
 
 	// Create and parse template
-	tmpl, err := template.New("report").Funcs(template.FuncMap{
+	tmpl, err := template.New("report.html").Funcs(template.FuncMap{
 		"statusClass": g.getStatusClass,
 		"statusIcon":  g.getStatusIcon,
 		"formatDuration": g.formatDuration,
@@ -107,7 +130,7 @@ func (g *HTMLGenerator) Generate(ctx context.Context) error {
 			}
 			return fmt.Sprintf("%c%s", s[0]-32, s[1:])
 		},
-	}).Parse(htmlTemplate)
+	}).ParseFS(templateFS, ReportTemplate)
 	if err != nil {
 		return fmt.Errorf("failed to parse template: %w", err)
 	}
@@ -128,13 +151,15 @@ func (g *HTMLGenerator) Generate(ctx context.Context) error {
 	return nil
 }
 
-// calculateStats calculates test statistics for the template
-func (g *HTMLGenerator) calculateStats(testSuites []domain.TestSuite) TemplateData {
+// prepareTemplateData calculates test statistics for the template
+func (g *HTMLGenerator) prepareTemplateData(testSuites []report.TestSuite) TemplateData {
 	var totalTests, passedTests, failedTests, skippedTests int
+	var totalDuration float64
 
 	for _, suite := range testSuites {
 		for _, testCase := range suite.TestCases {
 			totalTests++
+			totalDuration += testCase.Duration
 			switch testCase.Status {
 			case "pass":
 				passedTests++
@@ -147,12 +172,14 @@ func (g *HTMLGenerator) calculateStats(testSuites []domain.TestSuite) TemplateDa
 	}
 
 	return TemplateData{
-		TestSuites:   testSuites,
-		GeneratedAt:  time.Now().Format("2006-01-02 15:04:05"),
-		TotalTests:   totalTests,
-		PassedTests:  passedTests,
-		FailedTests:  failedTests,
-		SkippedTests: skippedTests,
+		TestSuites:    testSuites,
+		GeneratedAt:   time.Now().Format(time.RFC3339),
+		Title:         g.Title,
+		TotalTests:    totalTests,
+		PassedTests:   passedTests,
+		FailedTests:   failedTests,
+		SkippedTests:  skippedTests,
+		TotalDuration: totalDuration,
 	}
 }
 
@@ -194,191 +221,4 @@ func (g *HTMLGenerator) formatDuration(seconds float64) string {
 	}
 	return fmt.Sprintf("%.2fs", seconds)
 }
-
-// htmlTemplate contains the HTML template with Tailwind CSS
-const htmlTemplate = `<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Go Test Report</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        mono: ['JetBrains Mono', 'Consolas', 'Monaco', 'Courier New', 'monospace']
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-50 font-sans">
-    <div class="min-h-screen">
-        <!-- Header -->
-        <header class="bg-white shadow-sm border-b border-gray-200">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div class="py-6">
-                    <h1 class="text-3xl font-bold text-gray-900">Go Test Report</h1>
-                    <p class="mt-2 text-sm text-gray-600">Generated on {{.GeneratedAt}}</p>
-                </div>
-            </div>
-        </header>
-
-        <!-- Statistics -->
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                <div class="bg-white overflow-hidden shadow rounded-lg">
-                    <div class="p-5">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm font-semibold">T</span>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Total Tests</dt>
-                                    <dd class="text-lg font-medium text-gray-900">{{.TotalTests}}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white overflow-hidden shadow rounded-lg">
-                    <div class="p-5">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm font-semibold">✓</span>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Passed</dt>
-                                    <dd class="text-lg font-medium text-green-600">{{.PassedTests}}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white overflow-hidden shadow rounded-lg">
-                    <div class="p-5">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm font-semibold">✗</span>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Failed</dt>
-                                    <dd class="text-lg font-medium text-red-600">{{.FailedTests}}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-white overflow-hidden shadow rounded-lg">
-                    <div class="p-5">
-                        <div class="flex items-center">
-                            <div class="flex-shrink-0">
-                                <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
-                                    <span class="text-white text-sm font-semibold">⚠</span>
-                                </div>
-                            </div>
-                            <div class="ml-5 w-0 flex-1">
-                                <dl>
-                                    <dt class="text-sm font-medium text-gray-500 truncate">Skipped</dt>
-                                    <dd class="text-lg font-medium text-yellow-600">{{.SkippedTests}}</dd>
-                                </dl>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Test Suites -->
-            <div class="space-y-8">
-                {{range .TestSuites}}
-                <div class="bg-white shadow rounded-lg overflow-hidden">
-                    <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
-                        <h2 class="text-lg font-medium text-gray-900 font-mono">{{.Name}}</h2>
-                        <p class="text-sm text-gray-500 mt-1">{{len .TestCases}} test(s)</p>
-                    </div>
-
-                    <div class="divide-y divide-gray-200">
-                        {{range .TestCases}}
-                        <div class="p-6">
-                            <div class="flex items-start justify-between">
-                                <div class="flex items-start space-x-3 flex-1">
-                                    <div class="flex-shrink-0">
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border {{statusClass .Status}}">
-                                            {{statusIcon .Status}} {{.Status | title}}
-                                        </span>
-                                    </div>
-                                    <div class="flex-1 min-w-0">
-                                        <h3 class="text-sm font-medium text-gray-900 font-mono">{{.Name}}</h3>
-                                        <div class="mt-2 flex items-center space-x-4">
-                                            <span class="text-sm text-gray-500">
-                                                Duration: {{formatDuration .Duration}}
-                                            </span>
-                                        </div>
-
-                                        {{if .Output}}
-                                        <div class="mt-4">
-                                            <details class="group">
-                                                <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
-                                                    <span class="group-open:hidden">Show output ({{len .Output}} line(s))</span>
-                                                    <span class="hidden group-open:inline">Hide output</span>
-                                                </summary>
-                                                <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
-                                                    <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">{{range .Output}}{{.}}
-{{end}}</pre>
-                                                </div>
-                                            </details>
-                                        </div>
-                                        {{end}}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        {{end}}
-                    </div>
-                </div>
-                {{end}}
-            </div>
-        </div>
-
-        <!-- Footer -->
-        <footer class="bg-white border-t border-gray-200 mt-12">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-                <p class="text-center text-sm text-gray-500">
-                    Generated by go-test-html-report on {{.GeneratedAt}}
-                </p>
-            </div>
-        </footer>
-    </div>
-
-    <script>
-        // Add some interactivity
-        document.addEventListener('DOMContentLoaded', function() {
-            // Smooth scrolling for anchor links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    document.querySelector(this.getAttribute('href')).scrollIntoView({
-                        behavior: 'smooth'
-                    });
-                });
-            });
-        });
-    </script>
-</body>
-</html>`
 

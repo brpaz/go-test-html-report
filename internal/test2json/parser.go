@@ -6,7 +6,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/brpaz/go-test-html-report/internal/domain"
+	"github.com/brpaz/go-test-html-report/internal/report"
 )
 
 type TestEvent struct {
@@ -19,12 +19,12 @@ type TestEvent struct {
 }
 
 // Parse parses the given JSON data in test2json format and returns a struct representing the test results.
-func Parse(data []byte) ([]domain.TestSuite, error) {
+func Parse(data []byte) ([]report.TestSuite, error) {
 	// Map to store test suites by package name
-	suiteMap := make(map[string]*domain.TestSuite)
+	suiteMap := make(map[string]*report.TestSuite)
 
 	// Map to store test cases by package and test name for accumulating output
-	testMap := make(map[string]map[string]*domain.TestCase)
+	testMap := make(map[string]map[string]*report.TestCase)
 
 	// Parse multiple JSON objects from the data
 	decoder := json.NewDecoder(bytes.NewReader(data))
@@ -40,11 +40,11 @@ func Parse(data []byte) ([]domain.TestSuite, error) {
 
 		// Initialize suite if not exists
 		if suiteMap[event.Package] == nil {
-			suiteMap[event.Package] = &domain.TestSuite{
+			suiteMap[event.Package] = &report.TestSuite{
 				Name:      event.Package,
-				TestCases: []domain.TestCase{},
+				TestCases: []report.TestCase{},
 			}
-			testMap[event.Package] = make(map[string]*domain.TestCase)
+			testMap[event.Package] = make(map[string]*report.TestCase)
 		}
 
 		// Skip if no test name (package-level events)
@@ -54,7 +54,7 @@ func Parse(data []byte) ([]domain.TestSuite, error) {
 
 		// Initialize test case if not exists
 		if testMap[event.Package][event.Test] == nil {
-			testCase := &domain.TestCase{
+			testCase := &report.TestCase{
 				Name:     event.Test,
 				Status:   "running",
 				Duration: 0,
@@ -93,7 +93,7 @@ func Parse(data []byte) ([]domain.TestSuite, error) {
 	}
 
 	// Convert map to slice
-	var suites []domain.TestSuite
+	var suites []report.TestSuite
 	for _, suite := range suiteMap {
 		suites = append(suites, *suite)
 	}

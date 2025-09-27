@@ -1,4 +1,4 @@
-package domain
+package report
 
 type TestSuite struct {
 	Name 	string

@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+  <title>{{.Title}}</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-mono: "JetBrains Mono", "Consolas", "Monaco", "Courier New", "monospace";
+    }
+  </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+  <div class="min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b border-gray-200">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="py-6">
+          <h1 class="text-3xl font-bold text-gray-900">{{.Title}}</h1>
+          <p class="mt-2 text-sm text-gray-600">Generated on {{.GeneratedAt}}</p>
+        </div>
+      </div>
+    </header>
+
+    <!-- Statistics -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-8">
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-blue-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">T</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Total Tests</dt>
+                  <dd class="text-lg font-medium text-gray-900">{{.TotalTests}}</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">✓</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Passed</dt>
+                  <dd class="text-lg font-medium text-green-600">{{.PassedTests}}</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">✗</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Failed</dt>
+                  <dd class="text-lg font-medium text-red-600">{{.FailedTests}}</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-yellow-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">⚠</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Skipped</dt>
+                  <dd class="text-lg font-medium text-yellow-600">{{.SkippedTests}}</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bg-white overflow-hidden shadow rounded-lg">
+          <div class="p-5">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-purple-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">⏱</span>
+                </div>
+              </div>
+              <div class="ml-5 w-0 flex-1">
+                <dl>
+                  <dt class="text-sm font-medium text-gray-500 truncate">Duration</dt>
+                  <dd class="text-lg font-medium text-purple-600">{{printf "%.2f" .TotalDuration}}s</dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Failed Tests Section -->
+      {{if gt .FailedTests 0}}
+      <div class="mb-8">
+        <div class="bg-red-50 border border-red-200 rounded-lg overflow-hidden">
+          <div class="bg-red-100 px-6 py-4 border-b border-red-200">
+            <div class="flex items-center">
+              <div class="flex-shrink-0">
+                <div class="w-8 h-8 bg-red-500 rounded-full flex items-center justify-center">
+                  <span class="text-white text-sm font-semibold">✗</span>
+                </div>
+              </div>
+              <div class="ml-3">
+                <h2 class="text-lg font-semibold text-red-900">Failed Tests ({{.FailedTests}})</h2>
+                <p class="text-sm text-red-700">Review these failing tests for immediate attention</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="divide-y divide-red-200">
+            {{range $suite := .TestSuites}}
+            {{range .TestCases}}
+            {{if eq .Status "fail"}}
+            <div class="p-6 bg-white">
+              <div class="flex items-start space-x-3">
+                <div class="flex-shrink-0">
+                  <span
+                        class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800 border border-red-200">
+                    ✗ Failed
+                  </span>
+                </div>
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-sm font-medium text-gray-900 font-mono">{{.Name}}</h3>
+                    <span class="text-sm text-gray-500">
+                      Duration: {{formatDuration .Duration}}
+                    </span>
+                  </div>
+                  <p class="text-xs text-gray-600 mt-1 font-mono">Package: {{$suite.Name}}</p>
+
+                  {{if .Output}}
+                  <div class="mt-4">
+                    <details class="group">
+                      <summary class="cursor-pointer text-sm font-medium text-red-700 hover:text-red-900">
+                        <span class="group-open:hidden">Show failure output ({{len .Output}} line(s))</span>
+                        <span class="hidden group-open:inline">Hide failure output</span>
+                      </summary>
+                      <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                        <pre class="text-red-400 text-xs font-mono whitespace-pre-wrap">{{range .Output}}{{.}}
+{{end}}</pre>
+                      </div>
+                    </details>
+                  </div>
+                  {{end}}
+                </div>
+              </div>
+            </div>
+            {{end}}
+            {{end}}
+            {{end}}
+          </div>
+        </div>
+      </div>
+      {{end}}
+
+      <!-- Test Suites -->
+      <div class="space-y-8">
+        {{range .TestSuites}}
+        <div class="bg-white shadow rounded-lg overflow-hidden">
+          <div class="bg-gray-50 px-6 py-4 border-b border-gray-200">
+            <h2 class="text-lg font-medium text-gray-900 font-mono">{{.Name}}</h2>
+            <p class="text-sm text-gray-500 mt-1">{{len .TestCases}} test(s)</p>
+          </div>
+
+          <div class="divide-y divide-gray-200">
+            {{range .TestCases}}
+            <div class="p-6">
+              <div class="flex items-start justify-between">
+                <div class="flex items-start space-x-3 flex-1">
+                  <div class="flex-shrink-0">
+                    <span
+                          class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium border {{statusClass .Status}}">
+                      {{statusIcon .Status}} {{.Status | title}}
+                    </span>
+                  </div>
+                  <div class="flex-1 min-w-0">
+                    <h3 class="text-sm font-medium text-gray-900 font-mono">{{.Name}}</h3>
+                    <div class="mt-2 flex items-center space-x-4">
+                      <span class="text-sm text-gray-500">
+                        Duration: {{formatDuration .Duration}}
+                      </span>
+                    </div>
+
+                    {{if .Output}}
+                    <div class="mt-4">
+                      <details class="group">
+                        <summary class="cursor-pointer text-sm font-medium text-gray-700 hover:text-gray-900">
+                          <span class="group-open:hidden">Show output ({{len .Output}} line(s))</span>
+                          <span class="hidden group-open:inline">Hide output</span>
+                        </summary>
+                        <div class="mt-3 bg-gray-900 rounded-md p-4 overflow-x-auto">
+                          <pre class="text-green-400 text-xs font-mono whitespace-pre-wrap">{{range .Output}}{{.}}
+{{end}}</pre>
+                        </div>
+                      </details>
+                    </div>
+                    {{end}}
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{end}}
+          </div>
+        </div>
+        {{end}}
+      </div>
+    </div>
+
+    <!-- Go to Top Button -->
+    <button id="goToTop"
+            class="fixed bottom-8 right-8 bg-blue-500 hover:bg-blue-600 text-white p-3 rounded-full shadow-lg transition-all duration-300 opacity-0 invisible transform translate-y-4 hover:scale-110 z-50">
+      <svg class="w-6 h-6"
+           fill="none"
+           stroke="currentColor"
+           viewBox="0 0 24 24"
+           xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round"
+              stroke-linejoin="round"
+              stroke-width="2"
+              d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
+      </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-gray-200 mt-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <p class="text-center text-sm text-gray-500">
+          Generated by <a target="_blank"
+             class="text-blue-400"
+             href="https://github.com/brpaz/go-test-html-report">go-test-html-report</a> on
+          {{.GeneratedAt}}
+        </p>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Add some interactivity
+    document.addEventListener('DOMContentLoaded', function () {
+      // Smooth scrolling for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+          e.preventDefault();
+          document.querySelector(this.getAttribute('href')).scrollIntoView({
+            behavior: 'smooth'
+          });
+        });
+      });
+
+      // Go to Top button functionality
+      const goToTopButton = document.getElementById('goToTop');
+
+      // Show/hide button based on scroll position
+      function toggleGoToTopButton() {
+        if (window.scrollY > 300) {
+          goToTopButton.classList.remove('opacity-0', 'invisible', 'translate-y-4');
+          goToTopButton.classList.add('opacity-100', 'visible', 'translate-y-0');
+        } else {
+          goToTopButton.classList.add('opacity-0', 'invisible', 'translate-y-4');
+          goToTopButton.classList.remove('opacity-100', 'visible', 'translate-y-0');
+        }
+      }
+
+      // Listen for scroll events
+      window.addEventListener('scroll', toggleGoToTopButton);
+
+      // Go to top when button is clicked
+      goToTopButton.addEventListener('click', function () {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      });
+
+      // Initial check
+      toggleGoToTopButton();
+    });
+  </script>
+</body>
+
+</html>

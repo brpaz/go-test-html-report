@@ -34,6 +34,12 @@ func main() {
 				Usage:   "Input file containing Go test results",
 				Value:   "test_results.json",
 			},
+			&cli.StringFlag{
+				Name:    "title",
+				Aliases: []string{"t"},
+				Usage:   "Title for the HTML report",
+				Value:   "Go Test Report",
+			},
 		},
 		EnableShellCompletion: true,
 		Description: `
@@ -42,10 +48,12 @@ func main() {
         Action: func(ctx context.Context, cmd *cli.Command) error {
 			inputFile := cmd.String("input")
 			outputFile := cmd.String("output")
+			title := cmd.String("title")
 
             reporter, err := generator.NewHTMLReportGenerator(
 				generator.WithInputFile(inputFile),
 				generator.WithOutputFile(outputFile),
+				generator.WithTitle(title),
 			)
             if err != nil {
                 return err
