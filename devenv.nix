@@ -16,4 +16,8 @@
     lefthook
     commitlint
   ];
+
+  enterShell = ''
+    lefthook install
+  '';
 }
