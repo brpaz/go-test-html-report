@@ -11,8 +11,15 @@
 
 </div>
 
+## Features
 
-## 🖼️ Example
+- Generates a good looking single page HTML report from Go test results, using [Tailwind CSS](https://tailwindcss.com/) for the UI.
+- Test Report includes summary statistics (number of tests, passed/failed, total test duration), test case details, and relevant test output.
+- Failed tests are highlighted at the top for easy identification.
+- Support for reading test results from a JSON file or standard input, which makes it easy to use with `go test` command.
+- No external dependencies besides `testify`.
+
+## 🖼️ Example Output
 
 ![Screenshot](./docs/assets/images/screenshot.png)
 
