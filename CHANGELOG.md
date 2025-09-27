@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.3 - 2025-09-27
+
+### What's Changed
+
+#### 🐛 Bug Fixes
+
+- fix: missing release information in the final binary + added codecov @brpaz (#10)
+
+**Full Changelog**: https://github.com/brpaz/go-test-html-report/compare/0.1.2...v0.1.3
+
 ## 0.1.2 - 2025-09-27
 
 ### What's Changed
