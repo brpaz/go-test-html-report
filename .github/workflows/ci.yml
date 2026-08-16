@@ -74,7 +74,7 @@ jobs:
           name: test-results
           path: reports/
 
-      - uses: codecov/codecov-action@v5
+      - uses: codecov/codecov-action@v7
         if: ${{ !cancelled() }}
         with:
           slug: ${{ github.repository }}
