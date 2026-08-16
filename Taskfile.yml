@@ -38,3 +38,8 @@ tasks:
     desc: Create a snapshot release
     cmds:
       - goreleaser release --snapshot --clean
+
+  nix-build:
+    desc: Build the CLI via the Nix flake
+    cmds:
+      - nix build .#default

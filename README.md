@@ -43,7 +43,41 @@ go install github.com/brpaz/go-test-html-report/cmd/go-test-html-report@latest
 
 **Nix**
 
-Coming soon...
+This project ships a flake exposing the CLI as a package (`packages.default` / `packages.go-test-html-report`).
+
+Run it directly:
+
+```bash
+nix run github:brpaz/go-test-html-report -- --version
+```
+
+Or install it into your profile:
+
+```bash
+nix profile install github:brpaz/go-test-html-report
+```
+
+**In a devenv project**
+
+Add it as an input in your `devenv.yaml`:
+
+```yaml
+inputs:
+  go-test-html-report:
+    url: github:brpaz/go-test-html-report
+```
+
+Then reference the package in your `devenv.nix`:
+
+```nix
+{ inputs, ... }: {
+  packages = [ inputs.go-test-html-report.packages.${pkgs.system}.default ];
+}
+```
+
+**In another flake**
+
+Add it as an input in your `flake.nix` and reference `packages.<system>.default` from `inputs.go-test-html-report`.
 
 ## 🔧 Usage
 

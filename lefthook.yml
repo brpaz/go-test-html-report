@@ -16,6 +16,8 @@ pre-commit:
       files: git diff --name-only --cached
       glob: "*.go"
       run: golangci-lint run --fix {files}
+
+commit-msg:
   scripts:
     "commitlint.sh":
       runner: bash
