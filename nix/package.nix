@@ -2,14 +2,14 @@
 
 buildGoModule {
   pname = "go-test-html-report";
-  version = "0.1.2";
+  version = "0.1.3";
   src = ../.;
   subPackages = [ "cmd/go-test-html-report" ];
-  vendorHash = "sha256-KkTloTW0IhdULyOm3OB+LHKa7phYGJa1Pmf6nfmAsd0=";
+  vendorHash = "sha256-Ld0nVtjHTcws03etLguxsxzfEKzod8LdGMHbFEjvUws=";
   ldflags = [
     "-s"
     "-w"
-    "-X main.version=0.1.2"
+    "-X main.version=0.1.3"
   ];
 
   meta = with lib; {
